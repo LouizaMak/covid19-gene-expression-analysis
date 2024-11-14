@@ -47,8 +47,9 @@ TBD
 
 ## References
 [What Is Currently Known about the Role of CXCL10 in SARS-CoV-2 Infection?](https://pmc.ncbi.nlm.nih.gov/articles/PMC8998241/)
+
 [GSE147507 Human Gene Raw Read Counts](https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE147507)
-*Data from 'GSE147507_RawReadCounts_Human.tsv.gz' file.
+(Data from 'GSE147507_RawReadCounts_Human.tsv.gz' file.)
 
 ## License
 [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/)
