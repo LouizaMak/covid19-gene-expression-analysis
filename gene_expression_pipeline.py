@@ -8,33 +8,13 @@ def normalize_data_frame():
     #read tsv file as pandas data frame
     raw_df = pd.read_table('GSE147507_RawReadCounts_Human.tsv')
 
-    #df with only CXCL10, IL6, and TNF rows
-    filtered_df = raw_df.iloc[[15651,18271,17333]]
-
-    #remove df columns that do not follow A549_Mock/A549_Disease convention
-    remove_columns = ["ACE2", "NHBE", "Calu3", "HPIV", "Lung"]
+    #remove df columns that do not follow A549_Mock/A549_Covid convention
+    remove_columns = ["ACE2", "NHBE", "Calu3", "HPIV", "Lung", "Series4", "Series3"]
     for substring in remove_columns:
-        filtered_df = filtered_df.drop(columns=[col for col in filtered_df.columns if substring in col])
+        raw_df = raw_df.drop(columns=[col for col in raw_df.columns if substring in col])
 
-    filtered_df = filtered_df.iloc[:, 1:].replace(0, 1)
-
-    # #normalize data
-    # gene_lengths_kb = pd.Series([2.38, 6.0, 3.0], index=[15651,18271,17333])
-
-    # #calculate RPK
-    # rpk = filtered_df.iloc[:, 1:].div(gene_lengths_kb, axis = 0)
-
-    # #sum RPK for each sample (column)
-    # rpk_sum = rpk.sum(axis=0)
-
-    # #calculate tpm: divide RPK by RPK sum and multiply by 1,000,000
-    # tpm = rpk.div(rpk_sum, axis=1) * 1e6
-
-    # #log2 all elements within filtered_df
-    # def log2(x):
-    #     return math.log2(x)
-
-    # normalized_df = tpm.applymap(lambda x: log2(x))
+    #remove gene label column for data processing
+    filtered_df = raw_df.iloc[:, 1:].replace(0, 1)
 
     metadata = create_metadata(filtered_df)
 
@@ -48,27 +28,16 @@ def create_metadata(normalized_df):
     conditions = []
     
     for name in sample_names:
-        if "Series2" in name or "Series5" in name:
-            if "Mock" in name:
-                conditions += ["covid_untreated"]
-            else:
-                conditions += ["covid_treated"]
-        elif "Series3" in name or "Series8" in name:
-            if "Mock" in name:
-                conditions += ["rsv_untreated"]
-            else:
-                conditions += ["rsv_treated"]    
-        elif "Series4" in name:
-            if "Mock" in name:
-                conditions += ["iav_untreated"]
-            else:
-                conditions += ["iav_treated"]
+        if "Mock" in name:
+            conditions += ["covid_untreated"]
+        else:
+            conditions += ["covid_treated"]
     
     metadata = pd.DataFrame({
         'condition': conditions
     }, index=sample_names)
 
-    return metadata;
+    return metadata
 
 def run_differential_analysis(df, metadata):
     dds = DeseqDataSet(
@@ -77,12 +46,22 @@ def run_differential_analysis(df, metadata):
         design_factors="condition"
     )
 
+    #DESeq2 normalization and dispersion estimation of data
     dds.deseq2()
 
-    stat_res = DeseqStats(dds)
+    #covid_treated vs covid_untreated
+    covid_stats = DeseqStats(dds, contrast=["condition", "covid-treated", "covid-untreated"])
 
-    stat_res.summary()
+    #identify differentially expressed genes statistically
+    covid_stats.summary()
 
-    print(stat_res.results_df)
+    #set appropriate significance thresholds (e.g., adjusted p-value < 0.05)
+    stats_df = covid_stats.results_df[covid_stats.results_df['pvalue'] < 0.05]
+    stats_df = stats_df[stats_df['padj'] < 0.05]
+
+    #sort by ascending pvalue and keep first 100 rows
+    stats_df = stats_df.sort_values(by='pvalue').iloc[:100]
+
+    #reassign gene labels to 100 rows
 
 run_differential_analysis(*normalize_data_frame())
