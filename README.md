@@ -1,18 +1,12 @@
 # covid19-gene-expression-analysis
 
-Utilizing [GEO Series GSE147507](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507), the main objective of `covid19-gene-expression-analysis` is to analyze and represent differentially expressed genes, CXCL10, IL6, and TNF, in COVID-19 patients vs. other respiratory disease patients as a heat map and volcano plot. During the progression of COVID-19 infection, patients' immune responses become dysregulated. A "cytokine storm" phenomenon occurs through an uncontrolled production of large amounts of cytokines - inflammatory signaling proteins. This elevated activity can have serious repercussions such as organ failure and tissue damage. Observed inhibition of the "cytokine storm", as well as reduction of these protein concentrations, lead to more effective treatment.
+Utilizing [GEO Series GSE147507](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507), the main objective of `covid19-gene-expression-analysis` is to analyze and represent the top 100 differentially expressed genes in COVID-19 patients vs. non COVID-19 patients as a heat map and volcano plot. During the progression of a COVID-19 infection, patients' immune responses become dysregulated. A "cytokine storm" phenomenon occurs through an uncontrolled production of large amounts of cytokines - inflammatory signaling proteins. This elevated activity can have serious repercussions such as organ failure and tissue damage. Observed inhibition of the "cytokine storm", as well as reduction of these protein concentrations, lead to more effective treatment. 
 
-## CXCL10
+In addition, many genes expressed can have overlap with other diseases, allowing scientists to identify risk severity for secondary diseases or symptomatic complications. In the case of COVID-19, it is understood that older ages pose a significantly higher risk of developing COVID pneumonia, and in the most severe cases, ARDS (acute respiratory distress syndrome).
 
-CXCL10 is a known inflammatory marker that is shown to increase in COVID-19 cases, particularily in severe ones. It could also be a key regulator of the "cytokine storm" immune response.
+# GEO Series GSE147507
 
-## IL6
-
-IL6 has a central role in inflammation and is a primary agent that causes the "cytokine storm". Analysis of the IL6 levels in patients allows healthcare professionals to understand the progression and severity of related diseases.
-
-## TNF (TNF-a)
-
-TNF, or Tumor Necrosis Factor, serves as a first line of defense by recruiting inflammatory cells to affected areas and containing infection through formation of granulomas. However, this mediated inflammation response can cause detrimental tissue damage & gradually promotes lung fibrosis as its inhibitors supress antibodies that protect against diseases and conditions such as pneumonia, pulmonary edema, and respiratory distress syndrome.
+For the scope of this project, only samples of A549 (human lung epithelial cell lines) treated and untreated with SARS-CoV-2 were used for the differential analysis. 
 
 ## Table of Contents
 
@@ -32,6 +26,7 @@ TBD
 - matplotlib
 - pandas
 - seaborn
+- pyDESeq2
 - DESeq2
 - R
 
