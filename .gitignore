@@ -5,3 +5,5 @@ GSE147507_RawReadCounts_Human.tsv
 
 #Generate data files
 *.csv
+__pycache__/
+*.pyc
