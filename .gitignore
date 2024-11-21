@@ -2,3 +2,6 @@
 
 #GEO Series data file
 GSE147507_RawReadCounts_Human.tsv
+
+#Generate data files
+*.csv
