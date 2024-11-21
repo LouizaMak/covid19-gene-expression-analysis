@@ -1,17 +1,16 @@
 import pandas as pd
-import math
 from pydeseq2.dds import DeseqDataSet
 from pydeseq2.ds import DeseqStats
 
 def create_data_frame():
     
     # read tsv file as pandas data frame
-    raw_df = pd.read_table('GSE147507_RawReadCounts_Human.tsv')
+    raw_df = pd.read_table('../GSE147507_RawReadCounts_Human.tsv')
 
     raw_df = raw_df.rename(columns={'Unnamed: 0': 'Gene_Labels'})
 
     # remove df columns that do not follow A549_Mock/A549_Covid convention
-    remove_columns = ["ACE2", "NHBE", "Calu3", "HPIV", "Lung", "Series4", "Series3"]
+    remove_columns = ["ACE2", "NHBE", "Calu3", "HPIV", "Lung", "Series4", "Series3", "Series8"]
     for substring in remove_columns:
         raw_df = raw_df.drop(columns=[col for col in raw_df.columns if substring in col])
 
@@ -32,12 +31,12 @@ def create_metadata(normalized_df):
     
     for name in sample_names:
         if "Mock" in name:
-            conditions += ["covid_untreated"]
+            conditions += ["untreated"]
         else:
-            conditions += ["covid_treated"]
+            conditions += ["treated"]
     
     metadata = pd.DataFrame({
-        'condition': conditions
+        'covid19': conditions
     }, index=sample_names)
 
     return metadata
@@ -53,7 +52,7 @@ def run_differential_analysis(df, metadata, gene_labels):
     dds.deseq2()
 
     # covid_treated vs covid_untreated
-    covid_stats = DeseqStats(dds, contrast=["condition", "covid-treated", "covid-untreated"])
+    covid_stats = DeseqStats(dds, contrast=["condition", "treated", "untreated"])
 
     # identify differentially expressed genes statistically
     covid_stats.summary()
@@ -73,6 +72,6 @@ def run_differential_analysis(df, metadata, gene_labels):
     # sort by ascending pvalue and keep first 100 rows
     stats_df = stats_df.sort_values(by='pvalue').iloc[:100]
 
-    print(stats_df.to_string())
+    return stats_df
 
-run_differential_analysis(*create_data_frame())
+# run_differential_analysis(*create_data_frame())
