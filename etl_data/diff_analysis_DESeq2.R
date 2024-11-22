@@ -19,6 +19,8 @@ dds <- dds[keep, ]
 # set the factor level
 dds$covid19 <- relevel(dds$covid19, ref = "untreated")
 
+# -------- Transformation for Volcano Plot -------- #
+
 dds <- DESeq(dds)
 res <- results(dds)
 
@@ -40,3 +42,16 @@ res$Significance[res$log2FoldChange < -fc_threshold &
                    res$padj < pval_threshold] <- "Downregulated"
 
 write.csv(res, file = "deseq2_res_volcano_plot.csv", row.names = FALSE)
+
+# -------- Transformation for Heatmap -------- #
+
+# normalize counts
+dds <- estimateSizeFactors(dds)
+normalized_counts <- counts(dds, normalized = TRUE)
+
+# variance-stabilizing transformation (for heatmap)
+vsd <- vst(dds, blind = TRUE)
+vst_counts <- assay(vsd)
+
+# save vst-transformed data
+write.csv(vst_counts, file = "vst_normalized_counts.csv", row.names = TRUE)

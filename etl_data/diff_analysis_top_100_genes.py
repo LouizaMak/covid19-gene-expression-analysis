@@ -36,7 +36,7 @@ def create_metadata(normalized_df):
             conditions += ["treated"]
     
     metadata = pd.DataFrame({
-        'covid19': conditions
+        'condition': conditions
     }, index=sample_names)
 
     return metadata
@@ -72,6 +72,10 @@ def run_differential_analysis(df, metadata, gene_labels):
     # sort by ascending pvalue and keep first 100 rows
     top_100_df = stats_df.sort_values(by='pvalue').iloc[:100]
 
+    top_100_genes = top_100_df['Gene_Labels']
+
+    top_100_genes.to_csv('top_100_genes.csv', index = False)
+
     return top_100_df
 
-# run_differential_analysis(*create_data_frame())
+run_differential_analysis(*create_data_frame())
