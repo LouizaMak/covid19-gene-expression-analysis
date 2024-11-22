@@ -15,10 +15,13 @@ def create_csv_files():
 
 def create_volcano_plot():
     data = pd.read_csv('deseq2_res_volcano_plot.csv')
-    data = data.rename(columns={'neg_log10_pvalue': '-log10(Pvalue)', 'log2FoldChange': 'log2(Fold Change)'})
 
     plt.figure(figsize=(7,10))
     sns.scatterplot(data=data, x='log2(Fold Change)', y='-log10(Pvalue)', hue='Significance')
+
+    plt.title("GEO Series GSE147507 COVID-19 vs. Non-COVID-19 Differential Expression Analysis")
+    plt.xlabel("log2(Fold Change)")
+    plt.ylabel("-log10(Pvalue)")
     plt.show()
 
 create_volcano_plot()

@@ -24,7 +24,7 @@ def create_heatmap():
 
     plt.figure(figsize=(11,13))
     sns.heatmap(top_25_df, annot=True, fmt=".2f", cbar_kws={'label': 'Expression Level'}, square=True)
-    plt.title("COVID-19 vs. Control Top 25 Differentially Expressed Genes in GEO Series GSE147507 Heatmap")
+    plt.title("GEO Series GSE147507 COVID-19 vs. Non-COVID-19 Top 25 Differentially Expressed Gene Levels")
     plt.xlabel("Samples")
     plt.ylabel("Genes")
 
