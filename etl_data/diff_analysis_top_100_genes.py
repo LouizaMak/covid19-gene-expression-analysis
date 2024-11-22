@@ -70,8 +70,8 @@ def run_differential_analysis(df, metadata, gene_labels):
     stats_df = stats_df[(stats_df['pvalue'] < 0.05) & (stats_df['padj'] < 0.05)]
 
     # sort by ascending pvalue and keep first 100 rows
-    stats_df = stats_df.sort_values(by='pvalue').iloc[:100]
+    top_100_df = stats_df.sort_values(by='pvalue').iloc[:100]
 
-    return stats_df
+    return top_100_df
 
 # run_differential_analysis(*create_data_frame())
