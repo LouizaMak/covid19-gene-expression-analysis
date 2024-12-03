@@ -14,15 +14,13 @@ For the scope of this project, only samples of A549 (human lung epithelial cell 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Results](#results)
-- [Roadmap](#roadmap)
 - [License](#license)
 
 ## Features
-TBD
+This project includes the capability to transform data from GEO using the pandas library, R, pyDESeq2, and DESeq2 to present it as a heatmap, top 100 differentially expressed genes list, and volcano plot. It can produce CSV files for normalized counts as well.
 
 ## Requirements
 - Pipenv
-- GEOparse
 - matplotlib
 - pandas
 - seaborn
@@ -32,27 +30,17 @@ TBD
 
 ## Installation
 
-TBD
+Install Pipenv
+
+```$ pip install pipenv --user```
+
+Install all project dependencies
+
+```pip install -r requirements.txt```
 
 ## Results
 
-### Pathway Enrichment
-
-Performing pathway enrichment is crucial for researchers to gain insight on the underlying mechanisms of biological processes, disease state, or experimental condition from a gene list. It can assist in identifying and prioritizing candidate disease genes and provide a deeper understanding of disease pathology.
-
-The top 100 differentially expressed genes concluded through differential analysis was inputted into [Enrichr](https://maayanlab.cloud/Enrichr/), a web-based tool that analyzes gene lists and returns annotated gene sets based on existing biological knowledge. The scope of this project focused on the resulting enriched pathway bar graphs generated found [here](https://maayanlab.cloud/Enrichr/enrich?dataset=6f16781ba02a347cd3ab1fbd14f39140).
-
-![thumbnail of Enrichr pathway enrichment analysis bar graph results](images/enrichr_thumbnail.png)
-
-Each bar graph corresponded to a specific database or gene set library queried by Enrichr to provide a comprehensive overview. Enrichr analyzed provided gene list against multiple libraries to identify overlapping biological themes. This process highlighted potential molecular signatures of COVID-19 and indicated which cellular mechanisms might be disrupted or activated. The degree of enrichment is measured by the combined score of p-value and z-score and displayed by the length of each bar. 
-
-Example of pathway bar graph and table from the generated results:
-
-![thumbnail of Reactome 2022 pathway bar graph](images/reactome_2022_pathway_bar_graph.png)
-![thumbnail of Reactome 2022 pathway data table](images/reactome_2022_pathway_data_table.png)
-
-## Roadmap
-TBD!
+Summary and Results PDF [here](https://drive.google.com/file/d/1U5o99rULJWvpDyYst3Dv7pVyn0JUmGHG/view).
 
 ## References
 [What Is Currently Known about the Role of CXCL10 in SARS-CoV-2 Infection?](https://pmc.ncbi.nlm.nih.gov/articles/PMC8998241/)

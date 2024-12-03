@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f8b25f5a0c7ca426e0f6c457ed5ca1b3fd96f2185a6382104dd82c98415e0819"
+            "sha256": "2c552b2674ff775860d1ad6c1d6c33f6a5861745b4f9e8a1dcf546b30fc90299"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -267,15 +267,6 @@
             "index": "pypi",
             "markers": "python_version >= '3.8'",
             "version": "==4.54.1"
-        },
-        "geoparse": {
-            "hashes": [
-                "sha256:5982e38d1e66314bd20ad5ad8313a6adef8cf9c29e44583aaca13261e404d622",
-                "sha256:f2185310e5f7c6bd551c763476ad8a296cf7c355afa3136881e4bad5a5dad81a"
-            ],
-            "index": "pypi",
-            "markers": "python_version >= '3.6'",
-            "version": "==2.0.4"
         },
         "h5py": {
             "hashes": [
